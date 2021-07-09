@@ -3,22 +3,21 @@
 namespace frontend\assets;
 
 use yii\web\AssetBundle;
-use yii\web\YiiAsset;
-use yii\bootstrap\BootstrapAsset;
+use yii\web\JqueryAsset;
 
 /**
  * Main frontend application asset bundle.
  */
-class AppAsset extends AssetBundle
+class QrGenerateAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
-        'css/addition.css',
+    ];
+    public $js = [
+        'js/call-qr-generate.js',
     ];
     public $depends = [
-        YiiAsset::class,
-        BootstrapAsset::class,
+        JqueryAsset::class,
     ];
 }
