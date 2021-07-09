@@ -8,11 +8,9 @@ use common\models\Code;
 use common\models\Manager\QrCodeManager;
 use common\models\Models\ImageModel;
 use Da\QrCode\QrCode;
-use Da\QrCode\Writer\JpgWriter;
 use http\Exception\InvalidArgumentException;
 use JetBrains\PhpStorm\ArrayShape;
 use Yii;
-use yii\base\BaseObject;
 use yii\data\ActiveDataProvider;
 use yii\db\Exception;
 use yii\helpers\Json;
@@ -80,10 +78,7 @@ class QrCodeService
 
         try {
             $qr = (new QrCode(
-                Yii::$app->params['gatewayUrl'] . '?' . implode('&', $paramsArray),
-                null,
-                new JpgWriter()
-            ))
+                Yii::$app->params['gatewayUrl'] . '?' . implode('&', $paramsArray)))
                 ->setSize(250)
                 ->setMargin(5)
                 ->useForegroundColor(51, 153, 255);

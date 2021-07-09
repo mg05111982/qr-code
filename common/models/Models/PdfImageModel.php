@@ -26,7 +26,7 @@ class PdfImageModel implements ImageInterface
             'format' => Pdf::FORMAT_A4,
             'orientation' => Pdf::ORIENT_PORTRAIT,
             'destination' => Pdf::DEST_BROWSER,
-            'content' => "<img src='data:image/jpeg;base64, ".base64_encode($img)."' />",
+            'content' => "<img src='data:image/png;base64, ".base64_encode($img)."' />",
         ]);
     }
 
