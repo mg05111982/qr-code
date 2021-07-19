@@ -8,6 +8,7 @@ use common\models\Code;
 use common\models\Manager\QrCodeManager;
 use common\models\Models\ImageModel;
 use Da\QrCode\QrCode;
+use frontend\models\FormPrepare\FormPrepare;
 use http\Exception\InvalidArgumentException;
 use JetBrains\PhpStorm\ArrayShape;
 use Yii;
@@ -116,25 +117,8 @@ class QrCodeService
     public function updateQr($form): void
     {
         $id = $form['id'] ?? null;
-        $data = [];
-        foreach ($form as $name => $value) {
-            if (is_array($value) && 'params' === $name){
-                $params = '';
-                foreach ($value as $key => $v) {
-                    $params .=  '"'.$key.'":"'.$v.'", ';
-                }
-                $data[] = [
-                    'name' => 'params',
-                    'value' => mb_substr(trim($params), 0, -1),
-                ];
-            } else {
-                $data[] = [
-                    'name' => $name,
-                    'value' => $value,
-                ];
-            }
-        }
-
+        $prepare = new FormPrepare($form);
+        $data = $prepare->prepare();
         $manager = new QrCodeManager();
         $manager->updateById($id, $data);
     }
