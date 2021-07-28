@@ -15,6 +15,7 @@ use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\Exception;
 use yii\helpers\Json;
+use yii\helpers\Url;
 
 class QrCodeService
 {
@@ -79,7 +80,7 @@ class QrCodeService
 
         try {
             $qr = (new QrCode(
-                Yii::$app->params['gatewayUrl'] . '?' . implode('&', $paramsArray)))
+                Url::to([Yii::$app->params['gatewayUrl'], $paramsArray])))
                 ->setSize(250)
                 ->setMargin(5)
                 ->useForegroundColor(51, 153, 255);
