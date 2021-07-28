@@ -52,17 +52,14 @@ class QrCodeService
         $manager = new QrCodeManager();
         $image = new ImageModel(base64_decode($manager->getField($id, 'img')), $mime);
 
-        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        Yii::$app->response->headers->set('Cache-Control', 'must-revalidate, post-check=0, pre-check=0');
+        Yii::$app->response->headers->set('Content-Type', 'application/force-download');
 
         if ('pdf' === $mime) {
-            header('Content-Type: application/pdf');
-            header('Content-Disposition: attachment; filename="qr-code-'.time().'.pdf"');
+            Yii::$app->response->headers->set('Content-Disposition', 'attachment; filename="qr-code-'.time().'.pdf"');
         } else {
-            header('Content-Type: image/' . $mime);
-            header('Content-Disposition: attachment; filename="qr-code-'.time().'.'.$mime.'"');
+            Yii::$app->response->headers->set('Content-Disposition', 'attachment; filename="qr-code-'.time().'.'.$mime.'"');
         }
-
-        header("Content-type: application/force-download");
 
         return $image->render();
     }
